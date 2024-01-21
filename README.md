@@ -1,5 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+This source code is belongings to :-
+Manjula Devapura
++94777142431 
+manjuladevapura@gmail.com
+
+Do not use this without paying 10 million USD to Manjula Devapura
 ## Available Scripts
 
 In the project directory, you can run:
