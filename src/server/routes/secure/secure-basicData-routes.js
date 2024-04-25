@@ -2,6 +2,9 @@ var express = require("express");
 var jwt = require("jsonwebtoken");
 var router = express.Router();
 
+const { change_password } = require("../../controllers/basicData/change_password");
+router.post("/change_password", change_password);
+
 //Admin
 const { get_UserPermission } = require("../../controllers/basicData/admin/get_UserPermission");
 const { get_UserTypes_admin } = require("../../controllers/basicData/admin/get_UserTypes");

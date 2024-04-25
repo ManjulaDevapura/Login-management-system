@@ -6,6 +6,7 @@ import { Translation } from "react-i18next";
 
 import Navigation from "../navigation/Navigation";
 import LogIn from "../login/LogIn";
+import ChangeLogin from "../login/ChangeLogin";
 import Home from "../dashboard/Home";
 
 // language image
@@ -191,7 +192,7 @@ export class Controller extends Component {
               </ul>
             </nav>
 
-            {this.props.isLoggedIn ? (
+            {this.props.isLoggedIn && !this.props.first_login ? (
               <div>
                 {/* Sidebar + Content */}
                 <div id="wrapper">
@@ -221,7 +222,7 @@ export class Controller extends Component {
                       {/* */}
 
                       {/* if logged in, navigate to home page else navigate to login page*/}
-                      {this.props.isLoggedIn ? (
+                      {this.props.isLoggedIn && !this.props.first_login ? (
                         <>
                           <PrivateRoute />
                           <div id="ToastSection">
@@ -270,39 +271,21 @@ export class Controller extends Component {
               >
                 <div className="table">
                   <div className="row">
-                    {/* <div className='col-lg-4'>
-                      <img src={GymSIgn} alt={"loading"} style={{borderStyle: "solid", borderWidth: 0, borderColor: "black"}} />
-                      </div>  */}
-                    {/* <div className='col-lg-1'>
-                      <img src={GymSIgn} alt={"loading"} style={{borderStyle: "solid", borderWidth: 0, borderColor: "black"}} />
-                      </div> */}
-                    <div className="col-lg-3">
-                      {" "}
-                      {/* <img
-                        src={GymSIgn2}
-                        alt={"loading"}
-                        style={{
-                          borderStyle: "solid",
-                          borderWidth: 0,
-                          borderColor: "black",
-                        }}
-                      /> */}
-                    </div>
+                    <div className="col-lg-3"> </div>
                     <div className="col-lg-6">
-                      <Route path="/" component={LogIn} />
+                      {!this.props.isLoggedIn ? (
+                        <Route path="/" component={LogIn} />
+                      ) : (
+                        <></>
+                      )}
+                      {this.props.isLoggedIn && this.props.first_login ? (
+                        <Route path="/" component={ChangeLogin} />
+                      ) : (
+                        <></>
+                      )}
                     </div>
-                    <div className="col-lg-3">
-                      {" "}
-                      {/* <img
-                        src={GymSIgn2}
-                        alt={"loading"}
-                        style={{
-                          borderStyle: "solid",
-                          borderWidth: 0,
-                          borderColor: "black",
-                        }}
-                      /> */}
-                    </div>
+
+                    <div className="col-lg-3"> </div>
                   </div>
                   <div className="row">
                     <div className="col-lg-4">
@@ -326,6 +309,8 @@ export class Controller extends Component {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.rLogin.isLoggedIn,
+    first_login: state.rLogin.first_login,
+    isChangedPassword: state.rLogin.isChangedPassword,
     name: state.rLogin.name,
     type: state.rLogin.type,
     type_Id: state.rLogin.type_Id,

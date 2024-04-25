@@ -35,7 +35,7 @@ class LogIn extends Component {
         $('#error').empty();
         if (this.props.isLoggedIn) {
             i18n.changeLanguage(this.props.language);
-            this.props.history.push('/home')
+            this.props.history.push('/entrepreneur')
         } else if (this.props.error !== null) {
             // error validation
             console.log(this.props.error);

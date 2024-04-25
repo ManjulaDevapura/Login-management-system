@@ -25,6 +25,7 @@ login.password,
 login.created,
 login.user_Id,
 login.type_Id,
+login.first_login,
 
 user.id as user_Id_Key,
 user.nic,
@@ -53,6 +54,7 @@ usertype.type
             var type_Id = result[0].type_Id;
             var type = result[0].type;
             var name = result[0].name;
+            var first_login = result[0].first_login;
 
 
             console.log( '=================================================== ');
@@ -81,17 +83,23 @@ usertype.type
                     console.log(token);
                     console.log(validation);
                     validation = {
-                         isLoggedIn: true,
-                         id : id,
-                         login_name : login_name,
-                         login_password : login_password,
-                         user_Id : user_Id,
-                         type_Id : type_Id,
-                         type : type,
-                         name : name,
-                         token: token,
-                         error: null
-                    }
+                      isLoggedIn: true,
+                      id: id,
+                      login_name: login_name,
+                      login_password: login_password,
+                      user_Id: user_Id,
+                      type_Id: type_Id,
+                      type: type,
+                      name: name,
+                      token: token,
+                      error: null,
+                      first_login:
+                        type_Id === 2
+                          ? first_login === 1
+                            ? true
+                            : false
+                          : false,
+                    };
                     console.log(validation);
                     console.log('Correct   user name & password');
                     res.json(validation);

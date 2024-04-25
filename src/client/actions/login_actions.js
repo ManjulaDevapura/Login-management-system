@@ -1,3 +1,4 @@
+import $ from 'jquery';
 const axios = require("axios");
 
 export const loginAsync = (data) => {
@@ -12,9 +13,14 @@ export const login = (userName, password) => {
         password: password,
       })
       .then((res) => {
-        console.log(res.data);
-        // this.props.history.push('/tvLine')
-        dispatch(loginAsync(res.data));
+        $('#error').empty();
+        if(!res.data.isLoggedIn){
+          $('#error').addClass('alert alert-danger')
+          $(`<div>${res.data.error}</div>`).appendTo('#error');
+        }else{
+          dispatch(loginAsync(res.data));
+          this.props.history.push('/entrepreneur')
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -32,4 +38,28 @@ export const logout = (isLoggedIn) => {
 
 export const count_Async = (noOfMsg) => {
   return { type: "FETCH_Message_count", noOfMsg };
+};
+
+export const changePassword = (id, password, token) => {
+  return (dispatch) => {
+    axios.defaults.headers.common["authorization"] = token;
+    axios
+      .post("/basicData/change_password", {
+        id: id,
+        password: password,
+      })
+      .then((res) => {
+        const data = {
+          password: password,
+        };
+        dispatch(changePasswordAsync(data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const changePasswordAsync = (data) => {
+  return { type: "CHANGED_PASSWORD", data };
 };

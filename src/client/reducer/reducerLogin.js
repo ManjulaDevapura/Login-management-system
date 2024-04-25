@@ -9,8 +9,8 @@ const initialState = {
   username: '',
   password: '',
   user_Id : '',
-  type_Id : ''
-  
+  type_Id : '',
+  first_login: false
 };
 
 const logInReducer = (state = initialState, action) => {
@@ -32,7 +32,12 @@ const logInReducer = (state = initialState, action) => {
       newState.password = action.data.login_password;
       newState.user_Id = action.data.user_Id;
       newState.type_Id = action.data.type_Id;
+      newState.first_login = action.data.first_login;
       break;
+
+    case "CHANGED_PASSWORD":
+      newState.password = action.data.login_password;
+      newState.first_login = false;
 
     case "LOG_OUT":
       newState.isLoggedIn = false;
